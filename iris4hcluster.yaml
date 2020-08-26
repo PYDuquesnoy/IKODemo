@@ -1,0 +1,41 @@
+apiVersion: intersystems.com/v1alpha1
+kind: IrisCluster
+metadata:
+  name: irisapp
+spec:
+  passwordHash: '8bd95768a1c67cc44f425d69cee553cdb442367c,orppc7ok'
+  licenseKeySecret:
+    name: iris-key-secret
+  configSource:
+    name: iris-cpf
+  topology:
+    data:
+      mirrored: false
+      image: intersystemsicm/iris:latest
+      podTemplate:
+        spec:
+          imagePullSecrets:
+            - name: dockerhub-secret
+      updateStrategy:
+        type: RollingUpdate
+      storage:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10G
+        storageClassName: hostpath
+    compute:
+      image: intersystemsicm/iris:latest
+      replicas: 2
+      podTemplate:
+        spec:
+          imagePullSecrets:
+            - name: dockerhub-secret
+      storage:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5G
+        storageClassName: hostpath
