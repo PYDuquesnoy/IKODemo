@@ -102,6 +102,11 @@ To login to webui, we need to obtain a valid token, with following commands
 
 ```
 kubectl describe secret -n kube-system | grep deployment -A 12
+
+(
+or if you don't have grep, the powerShell equivalence:
+kubectl describe secret -n kube-system | Out-String -Stream | Select-String "deployment -A 12"
+)
 ```
 
 This returns a token to paste as authentication in the Webui:
@@ -139,8 +144,13 @@ Following dashboard is now visible:
   docker load -i iris_operator-2.0.0/image/iris_operator-2.0.0-docker.tgz
   ```
 
+  Check if iris-operator is running:
+
   ```
   docker images |grep iris-operator
+  (or for PoweShell:
+  docker images | Out-String -Stream | Select-String "iris-operator"
+  )
   ```
 
   ```
@@ -151,10 +161,10 @@ Following dashboard is now visible:
 
 - Verify/Update the following files to match the version of the operator uploaded to our docker repository: "intersystemsicm/iris-operator:v2.0.0"
 
-   * iris-operator_1.0.0/iris-operator_installer.yaml:
+   * iris-operator_2.0.0/iris-operator_installer.yaml:
 
      Change the "image" value to reference our repository (intersytstemsicm)
-    
+   
      ```
       containers:
            - name: operator
@@ -162,7 +172,7 @@ Following dashboard is now visible:
            imagePullPolicy: Always
         
      ```
-    
+   
   * iris-operator_1.0.0/chart/iris-operator/values.yaml:
   
     Change the "registry" tag to math "intersystemsicm"
