@@ -154,7 +154,7 @@ Following dashboard is now visible:
    * iris-operator_1.0.0/iris-operator_installer.yaml:
 
      Change the "image" value to reference our repository (intersytstemsicm)
-  
+    
      ```
       containers:
            - name: operator
@@ -162,7 +162,7 @@ Following dashboard is now visible:
            imagePullPolicy: Always
         
      ```
-  
+    
   * iris-operator_1.0.0/chart/iris-operator/values.yaml:
   
     Change the "registry" tag to math "intersystemsicm"
@@ -223,7 +223,7 @@ kubectl create secret docker-registry dockerhub-secret --docker-server=https://c
 Load the key as a secret:
 
 ```
-kubectl create secret generic iris-key-secret --from-file=./license/iris.key
+kubectl create secret generic iris-key-secret --from-file=./irislicense/iris.key
 ```
 
 
@@ -371,6 +371,43 @@ kubectl delete svc iris-svc
 
 
 
-## Deploy An IRIS Cluster with Mirroring and App Servers
+## Deploy an IRIS Cluster with Mirroring 
 
-TO BE DONE
+You can simply execute following template, which creates 2 mirrored Data Master Nodes and 1 arbiter node.(Note: The Arbiter is of version 2020.3, as it seems that the arbiter v2020.2 is missing /bin/bash and fails to start):
+
+```
+kubectl apply -f ./iris4healthmirror.yaml
+```
+
+
+
+## Deploy an IRIS Cluster with Application Servers
+
+Following Template creates 1 Data Master node and 2 application servers:
+
+```
+kubectl apply -f .\iris4healthcluster.yaml
+```
+
+
+
+## Debugging
+
+Sometimes a pod may not start up and fail. Here are some commands to investigate:
+
+```
+kubectl get pods
+```
+
+```
+kubectl logs -p <pod-name>
+```
+
+```
+kubectl describe pod <pod-name>
+```
+
+```
+kubectl get pods <pod-name> -o yaml
+```
+

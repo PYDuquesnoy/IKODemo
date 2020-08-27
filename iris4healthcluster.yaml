@@ -1,7 +1,7 @@
 apiVersion: intersystems.com/v1alpha1
 kind: IrisCluster
 metadata:
-  name: iris4h
+  name: irisapp
 spec:
   passwordHash: '8bd95768a1c67cc44f425d69cee553cdb442367c,orppc7ok'
   licenseKeySecret:
@@ -24,5 +24,18 @@ spec:
         resources:
           requests:
             storage: 10G
+        storageClassName: hostpath 
+    compute:
+      image: containers.intersystems.com/intersystems/irishealth:2020.2.0.211.0
+      replicas: 2
+      podTemplate:
+        spec:
+          imagePullSecrets:
+            - name: dockerhub-secret
+      storage:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5G
         storageClassName: hostpath
-    
