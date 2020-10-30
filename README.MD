@@ -273,7 +273,7 @@ Load a CPF config for compute nodes and data nodes (data.cpf and compute.cpf)
 [StartUp]
 SystemMode=my-iriscluster
 [config]
-globals= 0,0,204800,0,0,0
+globals= 0,0,512,0,0,0
 gmheap= 262144
 ```
 
