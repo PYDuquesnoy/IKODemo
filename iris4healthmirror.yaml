@@ -10,7 +10,7 @@ spec:
     name: iris-cpf
   topology:
     arbiter:
-      image: containers.intersystems.com/intersystems/arbiter:2020.3.0.200.0
+      image: containers.intersystems.com/intersystems/arbiter:2020.4.0.521.0
       podTemplate:
         spec:
           imagePullSecrets:
