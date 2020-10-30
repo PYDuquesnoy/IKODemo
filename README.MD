@@ -105,7 +105,7 @@ kubectl describe secret -n kube-system | grep deployment -A 12
 
 (
 or if you don't have grep, the powerShell equivalence:
-kubectl describe secret -n kube-system | Out-String -Stream | Select-String "deployment -A 12"
+  kubectl describe secret -n kube-system | Select-String -Pattern deployment -Context 0,10
 )
 ```
 
@@ -149,7 +149,7 @@ Following dashboard is now visible:
   ```
   docker images |grep iris-operator
   (or for PoweShell:
-  docker images | Out-String -Stream | Select-String "iris-operator"
+  docker images | sls -Pattern iris-operator
   )
   ```
 
